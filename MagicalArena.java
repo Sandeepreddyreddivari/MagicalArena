@@ -1,6 +1,20 @@
+/*
+ ************************************************************************************************************
+ File Name:MagicalArena.java
+ Authour:Sandeep Reddy 
+ ************************************************************************************************************
+ */
+
+/* ************************ Import **************************************** */
 import java.util.Scanner;
 import java.util.Random;
-// Class to represent a player
+
+/*
+ ************************************************************************************************************
+ Class Name     :Player
+ Description    :Class to represent a player  with required attributes 
+ ************************************************************************************************************
+ */
 class Player {
     private String name;
     private int health;
@@ -55,8 +69,13 @@ class Player {
         return wrongInputCount;
     }
 }
-
-// Class to represent the magical arena
+/*
+ ************************************************************************************************************
+ Class Name     :MagicalArena
+ Description    :Class to represents the magical arena to start the game ,get the random value for dice ,
+                 get the user input and check for the valid player input 
+ ************************************************************************************************************
+*/
 class MagicalArena {
     private Player playerA;
     private Player playerB;
@@ -71,7 +90,7 @@ class MagicalArena {
     }
     
     public  int rollDice() {
-        return random.nextInt(6) + 1; // Generates a random number between from 1 to 6
+        return random.nextInt(6) + 1; // Generates a random number  from 1 to 6
     }
     public void startMatch() {
         // Display player attributes only once in the beginning
@@ -176,6 +195,13 @@ class MagicalArena {
         return -1;
     }
 }
+/*
+ ************************************************************************************************************
+ Class Name     :Main
+ Description    :The Main class gives the Introduction and Rules of the game and starts the match and declares 
+                 the winner    
+ ************************************************************************************************************
+ */
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to MAGICAL ARENA!!\n"+"Rules:");
