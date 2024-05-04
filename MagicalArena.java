@@ -207,8 +207,8 @@ public class Main {
         System.out.println("Welcome to MAGICAL ARENA!!\n"+"Rules:");
         System.out.println("**Every Player has HEALTH,STRENGTH and an ATTACK Powers.\n"+"**Attacking player rolls the attacking dice and the defending player rolls the defending dice.\n"+ "**The ATTACK  value multiplied by the outcome of the  attacking dice roll is the damage created by the attacker.\n"+"**The defender Strength value, multiplied by the outcome of the defending dice is the damage defended by the defender.\n"+ "**Whatever damage created by attacker which is in excess of the damage defended by the defender will reduce the HEALTH of the defender\n"+"**The player dies if his HEALTH touches 0.\n"+"ROLL THE DICE WITH HOPE,FOR THE BEST NUMBERS.Good Luck,Have a nice game");
         // Create players
-        Player playerA = new Player("Player 1", 40, 5, 10);
-        Player playerB = new Player("Player 2", 30, 10, 5);
+        Player playerA = new Player("Player 1", 50, 5, 10);
+        Player playerB = new Player("Player 2", 100, 10, 5);
         // Create magical arena
         MagicalArena arena = new MagicalArena(playerA, playerB);
         // Start match
