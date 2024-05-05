@@ -1,0 +1,110 @@
+//unit tests for the solution provided
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import org.junit.Before;
+import org.junit.Test;
+
+public class MagicalArenaTest {
+
+    private Player playerA;
+    private Player playerB;
+    private MagicalArena arena;
+
+    @Before
+    public void setUp() {
+        playerA = new Player("Player 1", 50, 5, 10);
+        playerB = new Player("Player 2", 100, 10, 5);
+        arena = new MagicalArena(playerA, playerB);
+    }
+
+    @Test
+    public void testPlayerCreation() {
+        // Test player attributes
+        assertEquals("Player 1", playerA.getName());
+        assertEquals(50, playerA.getHealth());
+        assertEquals(5, playerA.getStrength());
+        assertEquals(10, playerA.getAttack());
+
+        assertEquals("Player 2", playerB.getName());
+        assertEquals(100, playerB.getHealth());
+        assertEquals(10, playerB.getStrength());
+        assertEquals(5, playerB.getAttack());
+    }
+
+    @Test
+    public void testRollDice() {
+        // Test rollDice method to ensure random values between 1 and 6
+        for (int i = 0; i < 1000; i++) {
+            int roll = arena.rollDice();
+            assertTrue(roll >= 1 && roll <= 6);
+        }
+    }
+
+    @Test
+    public void testAttack() {
+        // Test attack damage calculation
+        assertEquals(10, playerA.calculateDamage(1));
+        assertEquals(20, playerA.calculateDamage(2));
+        assertEquals(30, playerA.calculateDamage(3));
+
+        assertEquals(5, playerB.calculateDamage(1));
+        assertEquals(10, playerB.calculateDamage(2));
+        assertEquals(15, playerB.calculateDamage(3));
+    }
+
+    @Test
+    public void testReduceHealth() {
+        // Test reducing player health
+        playerA.reduceHealth(20);
+        assertEquals(30, playerA.getHealth());
+
+        playerB.reduceHealth(50);
+        assertEquals(50, playerB.getHealth()); // Ensure health doesn't go below 0
+    }
+
+    @Test
+    public void testPlayerInputValidity() {
+        // Test if player can enter valid input (8) to roll dice
+        assertEquals(8, arena.getPlayerInput(playerA));
+        assertEquals(8, arena.getPlayerInput(playerB));
+
+        // Test if player receives -1 when entering invalid input
+        assertEquals(-1, arena.getPlayerInput(playerA)); // 3 invalid inputs
+        assertEquals(-1, arena.getPlayerInput(playerA));
+        assertEquals(-1, arena.getPlayerInput(playerA));
+
+        // Player 2 wins after 3 consecutive wrong inputs from player 1
+        assertEquals(-1, arena.getPlayerInput(playerA));
+    }
+
+    @Test
+    public void testPlayerWinCondition() {
+        // Test win condition when player A wins
+        playerB.setHealth(5);
+        playerA.setHealth(10);
+        assertFalse(arena.checkWinCondition());
+        playerB.reduceHealth(5);
+        assertTrue(arena.checkWinCondition());
+
+        // Test win condition when player B wins
+        playerA.setHealth(5);
+        playerB.setHealth(10);
+        assertFalse(arena.checkWinCondition());
+        playerA.reduceHealth(5);
+        assertTrue(arena.checkWinCondition());
+    }
+
+    @Test
+    public void testPlayerInputLimit() {
+        // Test if player is limited to 3 consecutive wrong inputs
+        assertEquals(8, arena.getPlayerInput(playerA)); // Correct input
+        assertEquals(8, arena.getPlayerInput(playerB)); // Correct input
+        assertEquals(8, arena.getPlayerInput(playerA)); // Correct input
+        assertEquals(-1, arena.getPlayerInput(playerA)); // 4th wrong input
+    }
+
+    // can add more test cases if needed
+
+}
